@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const { user, animal } = require("./src/routes");
+const { user, animal, history } = require("./src/routes");
 const multer = require("multer");
 const path = require("path");
 const app = express();
@@ -46,6 +46,7 @@ app.use(
 
 app.use("/user/", user);
 app.use("/animal/", animal);
+app.use("/history/", history);
 
 app.use("/", (req, res) => {
   res.status(200).json({
