@@ -76,7 +76,10 @@ module.exports = {
       images: "images\\avatar.png",
       role: 1,
     }).then((response) => {
-      res.status(201).json(response);
+      res.status(201).json({
+        data: response,
+        available: true,
+      });
     });
   },
 };
