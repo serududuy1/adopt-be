@@ -22,16 +22,17 @@ const checkPassword = (encryptedPassword, password) => {
         reject(err);
         return;
       }
-
       resolve(isPasswordCorrect);
     });
   });
 };
+
 const createToken = (payload) => {
   return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET || "Rahasia", {
     expiresIn: "1d",
   });
 };
+
 module.exports = {
   accessControl: {
     USER: 1,
