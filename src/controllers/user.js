@@ -82,4 +82,40 @@ module.exports = {
       });
     });
   },
+  async login(req, res) {
+    const email = req.body.email;
+    const pwd = req.body.password;
+    const loginAccess = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (!loginAccess) {
+      res.status(404).json({
+        message: "Email tidak ditemukan",
+      });
+      return;
+    }
+    const isPasswordCorrect = await checkPassword(loginAccess.password, pwd);
+    if (!isPasswordCorrect) {
+      res.status(401).json({
+        message: "Password salah!",
+      });
+      return;
+    }
+    const accessToken = createToken({
+      id: loginAccess.id,
+      username: loginAccess.username,
+      email: loginAccess.email,
+      role: loginAccess.role,
+    });
+
+    res.status(200).json({
+      statusLogin: "Berhasil",
+      email: loginAccess.email,
+      token: `Bearer ${accessToken}`,
+      createdAt: loginAccess.createdAt,
+      updatedAt: loginAccess.updatedAt,
+    });
+  },
 };
