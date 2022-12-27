@@ -26,4 +26,46 @@ module.exports = {
       res.status(201).json(response);
     });
   },
+  async updateAnimal(req, res) {
+    if (!req.file) {
+      const err = new Error("harap masukkan file");
+      err.errorStatus = 422;
+      throw err;
+    }
+    console.log(req.params.idAnimal);
+
+    const data = {
+      name: req.body.name,
+      jenis: req.body.jenis,
+      harga: req.body.harga,
+      images: req.file.path,
+    };
+    Animal.update(data, {
+      where: {
+        id: req.params.idAnimal,
+      },
+    })
+      .then((result) => {
+        res.status(202).json({
+          message: "data update",
+          data: result,
+        });
+      })
+      .catch((err) => res.status(422).json(err));
+  },
+  async deleteAnimal(req, res) {
+    console.log(req.params);
+    Animal.destroy({
+      where: {
+        id: req.params.idAnimal,
+      },
+    })
+      .then((result) => {
+        res.status(204).json({
+          message: "data Delete",
+          data: result,
+        });
+      })
+      .catch((err) => res.status(422).json(err));
+  },
 };

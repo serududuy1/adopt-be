@@ -38,15 +38,20 @@ module.exports = {
         });
       });
   },
-  //   async addHistoryAdopt(req, res) {
-  //     await HistoryAdopt.create({
-  //       name: req.body.name,
-  //       jenis: req.body.jenis,
-  //       deskripsi: req.body.deskripsi,
-  //       harga: req.body.harga,
-  //       images: "images\\HistoryAdopt.jpeg",
-  //     }).then((response) => {
-  //       res.status(201).json(response);
-  //     });
-  //   },
+  async addHistoryAdopt(req, res) {
+    await HistoryAdopt.create({
+      idUser: req.user.id,
+      idAnimal: req.body.idAnimal,
+      dp: req.body.dp,
+      alamat: req.body.alamat,
+      status: req.body.status,
+    })
+      .then((response) => {
+        res.status(201).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  },
 };

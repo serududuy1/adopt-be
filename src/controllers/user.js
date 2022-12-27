@@ -63,7 +63,6 @@ module.exports = {
     if (existingUser) {
       res.status(422).json({
         message: "Email sudah dipakai",
-        x,
       });
       return;
     }
@@ -117,5 +116,68 @@ module.exports = {
       createdAt: loginAccess.createdAt,
       updatedAt: loginAccess.updatedAt,
     });
+  },
+  async updateUser(req, res) {
+    if (!req.file) {
+      const err = new Error("harap masukkan file");
+      err.errorStatus = 422;
+      throw err;
+    }
+    console.log(req.user);
+
+    const data = {
+      images: req.file.path,
+      saldo: req.body.saldo,
+      address: req.body.address,
+    };
+    User.update(data, {
+      where: {
+        email: req.user.email,
+      },
+    })
+      .then((result) => {
+        res.status(201).json({
+          message: "data update",
+          data: result,
+        });
+      })
+      .catch((err) => res.status(422).json(err));
+  },
+
+  authorize(params) {
+    return (req, res, next) => {
+      try {
+        const token = req.headers.authorization;
+        if (!token) {
+          res.status(401).json({
+            message: "Token Required!",
+          });
+          return;
+        }
+        const bearerToken = token.split("Bearer ")[1];
+        const tokenPayload = jwt.verify(
+          bearerToken,
+          process.env.JWT_SIGNATURE_KEY || "Rahasia"
+        );
+
+        if (params != tokenPayload.role) {
+          res.status(401).json({
+            message: "You are not authorized to access this!",
+          });
+          return;
+        }
+
+        req.user = tokenPayload;
+        next();
+      } catch (err) {
+        res.status(401).json({
+          error: {
+            name: err,
+            message: "Anda tidak berhak.",
+            details: err.details || null,
+          },
+        });
+      }
+    };
   },
 };

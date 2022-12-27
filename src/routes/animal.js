@@ -1,8 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const { allAnimal, addAnimal } = require("../controllers/animal");
+const {
+  allAnimal,
+  addAnimal,
+  updateAnimal,
+  deleteAnimal,
+} = require("../controllers/animal");
+const { accessControl, authorize } = require("../controllers/user");
 
 router.get("/v1/allAnimal", allAnimal);
-router.post("/v1/postAnimal", addAnimal);
+router.post("/v1/postAnimal", authorize(accessControl.ADMIN), addAnimal);
+router.put(
+  "/v1/updateAnimal/:idAnimal",
+  authorize(accessControl.ADMIN),
+  updateAnimal
+);
+router.delete(
+  "/v1/deleteAnimal/:idAnimal",
+  authorize(accessControl.ADMIN),
+  deleteAnimal
+);
 
 module.exports = router;

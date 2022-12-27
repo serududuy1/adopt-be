@@ -8,15 +8,15 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 8000;
 
+app.use(cookieParser());
+app.use(bodyParser.json());
+
 app.use(
   cors({
     origin: "http://localhost:3000",
     credentials: true,
   })
 );
-app.use(cookieParser());
-app.use(bodyParser.json());
-app.use(cors());
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -41,9 +41,8 @@ const cekfileFilter = (req, file, cb) => {
 };
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(
-  multer({ storage: fileStorage, fileFilter: cekfileFilter }).single("gambar")
+  multer({ storage: fileStorage, fileFilter: cekfileFilter }).single("images")
 );
-
 app.use("/user/", user);
 app.use("/animal/", animal);
 app.use("/history/", history);
@@ -52,6 +51,13 @@ app.use("/", (req, res) => {
   res.status(200).json({
     message: "URL TIDAK TERSEDIA",
   });
+});
+app.use((error, req, res, next) => {
+  const status = error.errorStatus || 500;
+  const message = error.message;
+  const data = error.data;
+
+  res.status(status).json({ message, data });
 });
 
 app.listen(port, () => console.log(`berjalan di http://localhost:${port}/`));
