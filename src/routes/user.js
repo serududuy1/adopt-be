@@ -18,7 +18,7 @@ router.post("/v1/login", login);
 router.put("/v1/updateUser", authorize(accessControl.USER), updateUser);
 
 // end point admin
-router.get("/v1/allUser", authorize(accessControl.ADMIN), allUser);
-router.put("/v1/updateAdmin", authorize(accessControl.ADMIN), updateUser);
+router.get("/v1/allUser", authorize(accessControl.USER), allUser);
+router.put("/v1/updateAdmin", authorize(accessControl.USER), updateUser);
 
 module.exports = router;

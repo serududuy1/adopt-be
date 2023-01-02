@@ -17,6 +17,7 @@ module.exports = {
   },
   async addAnimal(req, res) {
     await Animal.create({
+      idUser: req.user.id,
       name: req.body.name,
       jenis: req.body.jenis,
       deskripsi: req.body.deskripsi,

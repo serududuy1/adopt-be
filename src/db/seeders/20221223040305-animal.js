@@ -8,6 +8,7 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const timestamp = new Date();
     const users = names.map((name) => ({
+      idUser: 1,
       name: name,
       jenis: "mamalia",
       deskripsi: "hewan yang lucu, jinak",
