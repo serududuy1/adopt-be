@@ -21,7 +21,7 @@ module.exports = {
       jenis: req.body.jenis,
       deskripsi: req.body.deskripsi,
       harga: req.body.harga,
-      images: "images\\animal.jpeg",
+      images: req.file.path,
     }).then((response) => {
       res.status(201).json(response);
     });
