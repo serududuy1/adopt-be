@@ -5,6 +5,7 @@ const {
   addAnimal,
   updateAnimal,
   deleteAnimal,
+  animalById,
 } = require("../controllers/animal");
 const { accessControl, authorize } = require("../controllers/user");
 
@@ -20,5 +21,5 @@ router.delete(
   authorize(accessControl.ADMIN),
   deleteAnimal
 );
-
+router.get("/v1/animalById/:idAnimal", animalById);
 module.exports = router;

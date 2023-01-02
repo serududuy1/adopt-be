@@ -68,4 +68,23 @@ module.exports = {
       })
       .catch((err) => res.status(422).json(err));
   },
+  async animalById(req, res) {
+    await Animal.findAll({
+      where: {
+        id: req.params.idAnimal,
+      },
+    })
+      .then((response) => {
+        res.status(200).json({
+          message: "berhasil",
+          data: response,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          status: "failed",
+          message: err,
+        });
+      });
+  },
 };

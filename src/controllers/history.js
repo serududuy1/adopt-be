@@ -54,4 +54,46 @@ module.exports = {
         throw err;
       });
   },
+  async historyById(req, res) {
+    console.log(req.params);
+    await HistoryAdopt.findAll({
+      where: {
+        id: req.params.idhistory,
+      },
+      include: [
+        {
+          model: User,
+          attributes: [
+            ["id", "idUser"],
+            ["email", "email"],
+            ["username", "username"],
+            ["images", "images"],
+            ["role", "role"],
+          ],
+        },
+        {
+          model: Animal,
+          attributes: [
+            ["id", "idAnimal"],
+            ["name", "name"],
+            ["jenis", "jenis"],
+            ["images", "images"],
+            ["deskripsi", "deskripsi"],
+          ],
+        },
+      ],
+    })
+      .then((response) => {
+        res.status(200).json({
+          message: "berhasil",
+          data: response,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          status: "failed",
+          message: err,
+        });
+      });
+  },
 };
