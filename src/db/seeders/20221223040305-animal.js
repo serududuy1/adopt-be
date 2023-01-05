@@ -13,7 +13,7 @@ module.exports = {
       jenis: "mamalia",
       deskripsi: "hewan yang lucu, jinak",
       harga: "1000000",
-      images: "images\\animal.png",
+      images: "images\\animal.jpeg",
       createdAt: timestamp,
       updatedAt: timestamp,
     }));
