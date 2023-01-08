@@ -88,4 +88,23 @@ module.exports = {
         });
       });
   },
+  async animalByUser(req, res) {
+    await Animal.findAll({
+      where: {
+        idUser: req.params.idUser,
+      },
+    })
+      .then((response) => {
+        res.status(200).json({
+          message: "berhasil",
+          data: response,
+        });
+      })
+      .catch((err) => {
+        res.status(400).json({
+          status: "failed",
+          message: err,
+        });
+      });
+  },
 };
