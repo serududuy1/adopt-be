@@ -8,11 +8,13 @@ const {
   updateUser,
   accessControl,
   authorize,
+  UserById,
 } = require("../controllers/user");
 // end point all
 
 router.post("/v1/register", register);
 router.post("/v1/login", login);
+router.get("/v1/userId", authorize(accessControl.USER), UserById);
 
 // end point customer
 router.put("/v1/updateUser", authorize(accessControl.USER), updateUser);

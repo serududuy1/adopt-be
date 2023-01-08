@@ -144,6 +144,27 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
+  async UserById(req, res) {
+    User.findOne({
+      where: {
+        email: req.user.email,
+      },
+    })
+      .then((result) => {
+        const dt = {
+          id: result.id,
+          email: result.email,
+          images: result.images,
+          saldo: result.saldo,
+        };
+        res.status(201).json({
+          message: "data update",
+          data: dt,
+        });
+      })
+      .catch((err) => res.status(422).json(err));
+  },
+
   authorize(params) {
     return (req, res, next) => {
       try {
