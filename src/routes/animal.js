@@ -23,5 +23,5 @@ router.delete(
   deleteAnimal
 );
 router.get("/v1/animalById/:idAnimal", animalById);
-router.get("/v1/animalByUser/:idUser", animalByUser);
+router.get("/v1/animalByUser", authorize(accessControl.USER), animalByUser);
 module.exports = router;

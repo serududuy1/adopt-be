@@ -91,7 +91,7 @@ module.exports = {
   async animalByUser(req, res) {
     await Animal.findAll({
       where: {
-        idUser: req.params.idUser,
+        idUser: req.user.id,
       },
     })
       .then((response) => {
