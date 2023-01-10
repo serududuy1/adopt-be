@@ -54,6 +54,20 @@ module.exports = {
         throw err;
       });
   },
+  async updateHistoryAdopt(req, res) {
+    await HistoryAdopt.update(req.body, {
+      where: {
+        id: req.body.id,
+      },
+    })
+      .then((response) => {
+        res.status(201).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        throw err;
+      });
+  },
   async historyById(req, res) {
     console.log(req.params);
     await HistoryAdopt.findAll({

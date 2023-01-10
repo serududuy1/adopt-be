@@ -9,6 +9,7 @@ const {
   accessControl,
   authorize,
   UserById,
+  updateUserById,
 } = require("../controllers/user");
 // end point all
 
@@ -18,6 +19,7 @@ router.get("/v1/userId", authorize(accessControl.USER), UserById);
 
 // end point customer
 router.put("/v1/updateUser", authorize(accessControl.USER), updateUser);
+router.put("/v1/updateUserById/:idUser", updateUserById);
 
 // end point admin
 router.get("/v1/allUser", authorize(accessControl.USER), allUser);

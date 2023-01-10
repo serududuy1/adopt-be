@@ -16,6 +16,8 @@ router.get(
   historyById
 );
 router.get("/v1/historyByUser/", authorize(accessControl.USER), historyByUser);
+
+router.get("/v1/historyUpdate/", historyByUser);
 // router.get()
 
 module.exports = router;
