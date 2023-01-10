@@ -17,6 +17,7 @@ module.exports = {
           model: Animal,
           attributes: [
             ["id", "idAnimal"],
+            ["idUser", "idUser"],
             ["name", "name"],
             ["jenis", "jenis"],
             ["images", "images"],
