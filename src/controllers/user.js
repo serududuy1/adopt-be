@@ -146,7 +146,7 @@ module.exports = {
       .catch((err) => res.status(422).json(err));
   },
 
-  async UserById(req, res) {
+  async UserId(req, res) {
     User.findOne({
       where: {
         email: req.user.email,
@@ -157,6 +157,24 @@ module.exports = {
           id: result.id,
           email: result.email,
           images: result.images,
+          saldo: result.saldo,
+        };
+        res.status(201).json({
+          message: "data update",
+          data: dt,
+        });
+      })
+      .catch((err) => res.status(422).json(err));
+  },
+  async UserById(req, res) {
+    User.findOne({
+      where: {
+        id: req.body.id,
+      },
+    })
+      .then((result) => {
+        const dt = {
+          id: result.id,
           saldo: result.saldo,
         };
         res.status(201).json({
