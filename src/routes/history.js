@@ -4,6 +4,7 @@ const {
   addHistoryAdopt,
   historyById,
   historyByUser,
+  updateHistoryAdopt,
 } = require("../controllers/history");
 const { authorize, accessControl } = require("../controllers/user");
 const router = express.Router();
@@ -17,7 +18,7 @@ router.get(
 );
 router.get("/v1/historyByUser/", authorize(accessControl.USER), historyByUser);
 
-router.get("/v1/historyUpdate/", historyByUser);
+router.put("/v1/historyUpdate/", updateHistoryAdopt);
 // router.get()
 
 module.exports = router;

@@ -69,7 +69,6 @@ module.exports = {
       });
   },
   async historyById(req, res) {
-    console.log(req.params);
     await HistoryAdopt.findAll({
       where: {
         id: req.params.idhistory,
