@@ -169,7 +169,7 @@ module.exports = {
   async UserById(req, res) {
     User.findOne({
       where: {
-        id: req.body.id,
+        id: req.params.idU,
       },
     })
       .then((result) => {

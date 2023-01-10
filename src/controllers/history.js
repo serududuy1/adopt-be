@@ -123,8 +123,6 @@ module.exports = {
             ["id", "idUser"],
             ["email", "email"],
             ["username", "username"],
-            ["images", "images"],
-            ["role", "role"],
           ],
         },
         {
